@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -28,4 +31,21 @@ public class TestController {
         mav.setViewName("test");
         return mav;
     }
+
+    @GetMapping("/test/apple")
+    public ModelAndView appleTest(ModelAndView mav, @RequestParam Map<String, Object> paramMap ){
+
+        String apple = (String) paramMap.get("apple");
+        logger.info("apple : " + apple);
+
+        List<Map<String, Object>> selectAll = testService.selectAll();
+
+        mav.addObject("selectAll", selectAll);
+        mav.addObject("msg", "Hello");
+//        mav.addObject("apple", apple);
+        mav.setViewName("test");
+        return mav;
+    }
+
+
 }
